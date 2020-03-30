@@ -1,4 +1,5 @@
 ---
+# Inspired by https://jupyterhub.readthedocs.io/en/stable/installation-guide-hard.html
 
 - name: install firewalld
   package:
@@ -15,7 +16,7 @@
     name: firewalld
     enabled: yes
     state: started
-    daemon_reload: yes
+    daemon_reexec: yes
 
 - name: open port in firewall
   firewalld:
@@ -24,3 +25,53 @@
     state: enabled
   notify:
     - restart firewalld
+
+- name: install npm
+  package:
+    name: npm
+    state: present
+
+- name: Install configurable-http-proxy
+  npm:
+    name: configurable-http-proxy
+    global: yes
+
+- name: install Python 3
+  package:
+    name:
+      - python36
+      - python36-pip
+    state: present
+
+- name: create virtualenv
+  pip:
+    name:
+      - jupyterhub
+      - notebook
+    virtualenv: /opt/jupyterhub_venv
+    virtualenv_command: /bin/python3 -m venv
+  register: jupyterhub_venv
+
+- name: create the JupyterLab config dir
+  file:
+    path: "{{ jupyterhub_venv.virtualenv }}/etc/jupyterhub/"
+    state: directory
+  register: jupyterhub_config_dir
+
+- name: Set JupyterHub config
+  template:
+    src: jupyterhub_config.py.j2
+    dest: "{{ jupyterhub_config_dir.path }}/jupyterhub_config.py"
+  register: jupyterhub_config_file
+
+- name: Install JupyterHub service file
+  template:
+    src: jupyterhub.service.j2
+    dest: /etc/systemd/system/jupyterhub.service
+
+- name: start and enable jupyterhub
+  systemd:
+    name: jupyterhub
+    state: started
+    enabled: yes
+    daemon_reexec: yes
