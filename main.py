@@ -13,6 +13,11 @@ app_dir = Path(app)
 with open(app_dir / "meta.yaml") as f:
     app_meta = yaml.safe_load(f)
 
+subprocess.run(
+    ["ansible-galaxy", "install", "-r", app_dir / "requirements.yml"],
+    check=True
+)
+
 extra_args = " ".join(f"{k}={v}" for k, v in app_meta["variables"].items())
 
 r = subprocess.run(
