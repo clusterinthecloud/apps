@@ -1,3 +1,1 @@
 PyYaml
-ansible-lint
-molecule[lint,docker]
