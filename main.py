@@ -3,10 +3,17 @@
 import os
 import subprocess
 from pathlib import Path
+from typing import List
 
 import yaml
 
 APPS_ROOT_DIR = Path(__file__).resolve().parent
+
+
+def list_apps() -> List[str]:
+    subdirs = (x for x in APPS_ROOT_DIR.iterdir() if x.is_dir())
+    apps_dirs = (s for s in subdirs if (s / "meta.yaml").exists())
+    return [a.name for a in apps_dirs]
 
 
 def install(app: str, **user_variables):
