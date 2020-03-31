@@ -1,0 +1,26 @@
+---
+
+- name: install firewalld
+  package:
+    name: firewalld
+    state: present
+
+- name: install python-firewall
+  package:
+    name: python-firewall
+    state: present
+
+- name: start service firewalld
+  systemd:
+    name: firewalld
+    enabled: yes
+    state: started
+    daemon_reexec: yes
+
+- name: open port in firewall
+  firewalld:
+    port: 8000/tcp
+    permanent: true
+    state: enabled
+  notify:
+    - restart firewalld

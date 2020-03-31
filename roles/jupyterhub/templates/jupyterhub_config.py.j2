@@ -168,7 +168,7 @@
 #c.JupyterHub.cookie_secret = b''
 
 ## File in which to store the cookie secret.
-#c.JupyterHub.cookie_secret_file = 'jupyterhub_cookie_secret'
+c.JupyterHub.cookie_secret_file = '{{ jupyterhub_config_dir.path }}/jupyterhub_cookie_secret'
 
 ## The location of jupyterhub data files (e.g. /usr/local/share/jupyterhub)
 #c.JupyterHub.data_files_path = '/home/matt/temp/venv_jh/share/jupyterhub'
@@ -178,7 +178,7 @@
 #c.JupyterHub.db_kwargs = {}
 
 ## url for the database. e.g. `sqlite:///jupyterhub.sqlite`
-#c.JupyterHub.db_url = 'sqlite:///jupyterhub.sqlite'
+c.JupyterHub.db_url = 'sqlite:///{{ jupyterhub_config_dir.path }}/jupyterhub.sqlite'
 
 ## log all database transactions. This has A LOT of output
 #c.JupyterHub.debug_db = False
@@ -370,7 +370,7 @@
 #c.JupyterHub.named_server_limit_per_user = 0
 
 ## File to write PID Useful for daemonizing JupyterHub.
-#c.JupyterHub.pid_file = ''
+c.JupyterHub.pid_file = '{{ jupyterhub_run_dir.path }}/jupyterhub.pid'
 
 ## The public facing port of the proxy.
 #
@@ -468,6 +468,7 @@
 #    - localprocess: jupyterhub.spawner.LocalProcessSpawner
 #    - simple: jupyterhub.spawner.SimpleLocalProcessSpawner
 #c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
+c.JupyterHub.spawner_class = 'sudospawner.SudoSpawner'
 
 ## Path to SSL certificate file for the public facing interface of the proxy
 #
@@ -995,3 +996,5 @@ c.Spawner.default_url = '/lab'
 
 ## The number of threads to allocate for encryption
 #c.CryptKeeper.n_threads = 4
+
+c.ConfigurableHTTPProxy.pid_file = "{{ jupyterhub_run_dir.path }}/jupyterhub-proxy.pid"
