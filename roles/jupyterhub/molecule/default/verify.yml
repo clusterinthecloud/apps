@@ -12,11 +12,11 @@
       password: "{{ 'mypassword' | password_hash('sha512', 'mysecretsalt') }}"
       group: users
   - name: Check that sudoers works
-    command: sudo -n -u testuser /opt/jupyterhub_venv/bin/sudospawner --help
+    command: sudo -n -u testuser /opt/jupyterhub_venv/bin/sudospawner --help  # noqa 301
     become: yes
     become_user: citc-app-jh
   - name: Check that sudoers fails command correctly
-    command: sudo -n -u testuser echo 'fail'
+    command: sudo -n -u testuser echo 'fail'  # noqa 301
     become: yes
     become_user: citc-app-jh
     register: sudoers_test_fail
