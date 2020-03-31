@@ -6,9 +6,11 @@ from pathlib import Path
 
 import yaml
 
+APPS_ROOT_DIR = Path(__file__).resolve().parent
+
 
 def install(app: str, **user_variables):
-    app_dir = Path(app)
+    app_dir = APPS_ROOT_DIR / app
 
     with open(app_dir / "meta.yaml") as f:
         app_meta = yaml.safe_load(f)
@@ -28,12 +30,14 @@ def install(app: str, **user_variables):
 
     subprocess.run(
         ["ansible-galaxy", "install", "-r", app_dir / "requirements.yml"],
+        cwd=APPS_ROOT_DIR,
         check=True
     )
 
     r = subprocess.run(
         ["ansible-playbook", "--extra-vars", extra_args, app_dir / "install.yaml"],
         env=dict({"ANSIBLE_ROLES_PATH": "roles:~/.ansible/roles"}, **os.environ),
+        cwd=APPS_ROOT_DIR,
         #stdout=subprocess.PIPE,
         #stderr=subprocess.PIPE,
     )
