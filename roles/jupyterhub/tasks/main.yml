@@ -63,11 +63,13 @@
     src: jupyterhub_config.py.j2
     dest: "{{ jupyterhub_config_dir.path }}/jupyterhub_config.py"
   register: jupyterhub_config_file
+  notify: restart jupyterhub
 
 - name: Install JupyterHub service file
   template:
     src: jupyterhub.service.j2
     dest: /etc/systemd/system/jupyterhub.service
+  notify: restart jupyterhub
 
 - name: start and enable jupyterhub
   systemd:
@@ -89,3 +91,6 @@
       {{ user.name }} ALL=(JUPYTER_USERS) NOPASSWD:JUPYTER_CMD
     dest: /etc/sudoers.d/95-citc-app-jupyterhub-sudospawner
     validate: /usr/sbin/visudo -cf %s
+
+- include_tasks: pam.yml
+  when: jupyterhub_pam_shadow

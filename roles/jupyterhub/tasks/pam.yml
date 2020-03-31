@@ -1,0 +1,19 @@
+---
+
+- name: create shadow group
+  group:
+    name: shadow
+    system: yes
+
+- name: set owner of /etc/shadow to the shadow group
+  file:
+    path: /etc/shadow
+    group: shadow
+    mode: g+r
+
+- name: add JH user to shadow group
+  user:
+    name: "{{ user.name }}"
+    groups:
+      - shadow
+    append: yes

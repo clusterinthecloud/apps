@@ -1,2 +1,3 @@
 ---
-# defaults file for jupyterhub
+
+jupyterhub_pam_shadow: no

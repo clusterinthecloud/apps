@@ -21,14 +21,13 @@
     become_user: citc-app-jh
     register: sudoers_test_fail
     failed_when: sudoers_test_fail.rc == 0
-#  - name: Login to a form based webpage, then use the returned cookie to access the app in later tasks
-#    uri:
-#      url: http://localhost:8000/hub/login
-#      method: POST
-#      body_format: form-urlencoded
-#      body:
-#        username_input: testuser
-#        password: mypassword
-#        #enter: Sign in
-#      status_code: 302
-#    register: login
+  - name: Login to a form based webpage, then use the returned cookie to access the app in later tasks
+    uri:
+      url: http://localhost:8000/hub/login?next=
+      method: POST
+      body_format: form-urlencoded
+      body:
+        username: testuser
+        password: mypassword
+      status_code: 302
+    register: login

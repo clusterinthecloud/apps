@@ -16,6 +16,10 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
+  inventory:
+    host_vars:
+      instance:
+        jupyterhub_pam_shadow: yes
 verifier:
   name: ansible
 lint: |
