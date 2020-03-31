@@ -1,4 +1,10 @@
 ---
 
 name: JupyterHub
-variables: {}
+description: A JupyterHub server with JupyterLab built-in
+icon: logo.svg
+variables:
+  port:
+    ansible_var: nginx_port
+    default: 8002
+    description: The port that JupyterHub will be available on
