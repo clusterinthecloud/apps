@@ -1,5 +1,8 @@
 ---
 
+# These tasks are needed to get JupyterHub to work on a system with a PAM system that
+# reads /etc/shadow.
+
 - name: create shadow group
   group:
     name: shadow

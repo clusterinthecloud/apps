@@ -1,3 +1,5 @@
 ---
 
 jupyterhub_pam_shadow: no
+proxy_port: 8002
+nginx_port: 8000

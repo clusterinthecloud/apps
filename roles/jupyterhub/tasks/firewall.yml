@@ -19,7 +19,7 @@
 
 - name: open port in firewall
   firewalld:
-    port: 8000/tcp
+    port: "{{ nginx_port }}/tcp"
     permanent: true
     state: enabled
   notify:

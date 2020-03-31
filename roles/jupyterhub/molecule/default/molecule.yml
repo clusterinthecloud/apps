@@ -16,10 +16,15 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      stdout_callback: yaml
   inventory:
     host_vars:
       instance:
         jupyterhub_pam_shadow: yes
+        proxy_port: 8002
+        nginx_port: 8000
 verifier:
   name: ansible
 lint: |

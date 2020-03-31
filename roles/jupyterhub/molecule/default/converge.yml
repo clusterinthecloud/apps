@@ -1,7 +1,5 @@
 ---
 - name: Converge
   hosts: all
-  tasks:
-    - name: "Include jupyterhub"
-      include_role:
-        name: "jupyterhub"
+  roles:
+    - jupyterhub

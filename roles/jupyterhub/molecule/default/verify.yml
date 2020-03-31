@@ -3,9 +3,12 @@
 - name: Verify
   hosts: all
   tasks:
-  - name: Check that JupyterHub is running
+  - name: Check that JupyterHub proxy is running
     uri:
-      url: http://localhost:8000
+      url: "http://localhost:{{ proxy_port }}"
+  - name: Check that nginx is running
+    uri:
+      url: "http://localhost:{{ nginx_port }}"
   - name: add test user
     user:
       name: testuser
@@ -21,9 +24,9 @@
     become_user: citc-app-jh
     register: sudoers_test_fail
     failed_when: sudoers_test_fail.rc == 0
-  - name: Login to a form based webpage, then use the returned cookie to access the app in later tasks
+  - name: Login to JupyterHub as testuser
     uri:
-      url: http://localhost:8000/hub/login?next=
+      url: "http://localhost:{{ nginx_port }}/hub/login?next="
       method: POST
       body_format: form-urlencoded
       body:

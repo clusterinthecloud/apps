@@ -94,3 +94,5 @@
 
 - include_tasks: pam.yml
   when: jupyterhub_pam_shadow
+
+- include_tasks: nginx.yml
