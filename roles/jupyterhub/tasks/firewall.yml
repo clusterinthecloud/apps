@@ -20,7 +20,9 @@
 - name: open port in firewall
   firewalld:
     port: "{{ nginx_port }}/tcp"
-    permanent: true
+    zone: public
+    permanent: yes
+    immediate: yes
     state: enabled
   notify:
     - restart firewalld
