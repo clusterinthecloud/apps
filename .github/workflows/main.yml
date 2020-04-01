@@ -7,18 +7,19 @@ on:
     branches: [ master ]
 
 jobs:
-  test:
+  molecule:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.8
-    - name: Install dependencies
-      run: pip install -r requirements.txt -r requirements-dev.txt
-    - name: Run molecule test
-      run: |
-        cd roles/jupyterhub
-        molecule test
-
+      - uses: actions/checkout@v2
+      - name: Set up Python 3
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.x
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Setup package
+        run: poetry install
+      - name: Run molecule test
+        run: |
+          cd roles/jupyterhub
+          poetry run molecule test
