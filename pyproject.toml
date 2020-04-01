@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 [tool.poetry]
-name = "citc-apps"
+name = "citc_apps"
 version = "0.1.0"
 description = ""
 authors = ["Matt Williams <matt@milliams.com>"]
