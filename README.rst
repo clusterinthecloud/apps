@@ -7,6 +7,6 @@ Install JupyterHub with::
     cd apps
     python3 -m venv venv
     venv/bin/pip install -r requirements.txt
-    venv/bin/python main.py
+    venv/bin/python citc-apps/main.py
 
 This will launch JupyterHub at port 8000.
