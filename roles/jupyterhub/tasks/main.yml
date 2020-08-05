@@ -23,8 +23,8 @@
 - name: install Python 3
   package:
     name:
-      - python36
-      - python36-pip
+      - python38
+      - python38-pip
     state: present
 
 - name: create virtualenv

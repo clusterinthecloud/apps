@@ -5,9 +5,9 @@
     name: firewalld
     state: present
 
-- name: install python-firewall
+- name: install python3-firewall
   package:
-    name: python-firewall
+    name: python3-firewall
     state: present
 
 - name: start service firewalld
