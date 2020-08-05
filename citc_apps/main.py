@@ -7,7 +7,7 @@ from typing import List
 
 import yaml
 
-APPS_ROOT_DIR = Path(__file__).resolve().parent
+APPS_ROOT_DIR = Path(__file__).resolve().parent.parent
 
 
 def list_apps() -> List[str]:
