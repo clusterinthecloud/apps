@@ -32,7 +32,7 @@
                   proxy_set_header:
                     header_host:
                       name: Host
-                      value: $host
+                      value: $host:$server_port
                     header_x_real_ip:
                       name: X-Real-IP
                       value: $remote_addr
