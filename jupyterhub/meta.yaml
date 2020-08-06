@@ -6,5 +6,5 @@ icon: logo.svg
 variables:
   port:
     ansible_var: nginx_port
-    default: 8002
+    default: 8000
     description: The port that JupyterHub will be available on
